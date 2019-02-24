@@ -5,6 +5,7 @@
 // As for now these are compile constants, but should be introduced into Settings menu.
 
 const bool PAUSE_WHEN_IN_FOREGROUND = false;
+const bool AI_CAN_SURRENDER = false;
 
 const int MONSTER_VARIETY = 8;
 

@@ -34,6 +34,7 @@
 #include <OF_MINE.h>
 #include <OINFO.h>
 #include <OLOG.h>
+#include <NewLimits.h>
 
 //--------- Begin of function Nation::Nation --------//
 
@@ -319,7 +320,7 @@ void Nation::process_ai()
 
 	//------ think about surrendering -------//
 
-	if( info.game_date%60 == nation_recno%60 )
+	if( info.game_date%60 == nation_recno%60 && AI_CAN_SURRENDER)
 	{
 		if( think_surrender() )		
 			return;

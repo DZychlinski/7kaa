@@ -19,3 +19,4 @@ New things/settings/limits introduced in this repository
 	and this wiki page:
 		https://www.7kfans.com/wiki/index.php/Unit_and_attack_information
 * Game is not paused when window loses focus
+* AI cannot surrender to other players
