@@ -29,6 +29,7 @@
 #include <dbglog.h>
 #include <version.h>
 #include <FilePath.h>
+#include <NewLimits.h>
 
 DBGLOG_DEFAULT_CHANNEL(Vga);
 
@@ -390,7 +391,7 @@ void Vga::handle_messages()
             //case SDL_WINDOWEVENT_LEAVE: // Do not respond to mouse focus
             case SDL_WINDOWEVENT_FOCUS_LOST:
             case SDL_WINDOWEVENT_MINIMIZED:
-               if( !sys.is_mp_game )
+               if( !sys.is_mp_game && PAUSE_WHEN_IN_FOREGROUND)
                   sys.pause();
                // turn the system cursor back on to get around a fullscreen
                // mouse grabbed problem on windows
