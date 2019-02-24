@@ -141,20 +141,20 @@ void Unit::hit_target(Unit* parentUnit, Unit* targetUnit, float attackDamage, sh
 	//-----------------------------------------------------------------------//
 	// decrease the hit points of the target Unit
 	//-----------------------------------------------------------------------//
-	#define DEFAULT_ARMOR		4
-	#define DEFAULT_ARMOR_OVER_ATTACK_SLOW_DOWN	(float) DEFAULT_ARMOR / ATTACK_SLOW_DOWN
-	#define ONE_OVER_ATTACK_SLOW_DOWN				(float) 1/ATTACK_SLOW_DOWN
-	#define COMPARE_POINT								DEFAULT_ARMOR_OVER_ATTACK_SLOW_DOWN + ONE_OVER_ATTACK_SLOW_DOWN
+	float armor = unit_res[unit_id]->armor;
+	float default_armor_over_attack_slow_down = armor / ATTACK_SLOW_DOWN;
+	float one_over_attack_slow_down = 1.0 / ATTACK_SLOW_DOWN;
+	float compare_point = default_armor_over_attack_slow_down + one_over_attack_slow_down;
 
 	//-*********** simulate aat ************-//
 #ifdef DEBUG
 		if(!debug_sim_game_type)
 		{
 #endif
-			if( attackDamage >= COMPARE_POINT )
-				targetUnit->hit_points -= attackDamage - DEFAULT_ARMOR_OVER_ATTACK_SLOW_DOWN;
+			if( attackDamage >= compare_point )
+				targetUnit->hit_points -= attackDamage - default_armor_over_attack_slow_down;
 			else
-				targetUnit->hit_points -= MIN(attackDamage,ONE_OVER_ATTACK_SLOW_DOWN);  // in case attackDamage = 0, no hit_point is reduced
+				targetUnit->hit_points -= MIN(attackDamage,one_over_attack_slow_down);  // in case attackDamage = 0, no hit_point is reduced
 #ifdef DEBUG
 		}
 #endif

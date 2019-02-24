@@ -13,3 +13,8 @@ This readme should be kept in sync with new changes as they are commited.
 New things/settings/limits introduced in this repository
 --------------------------------------------------------
 * Increased monster variety on maps from 3 to 8
+* Units attack takes armor into consideration when computing damage points
+	for more information, please refer to this thread:
+		https://www.7kfans.com/forums/viewtopic.php?f=6&t=755
+	and this wiki page:
+		https://www.7kfans.com/wiki/index.php/Unit_and_attack_information
