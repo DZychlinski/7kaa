@@ -47,6 +47,7 @@
 #include <OSERES.h>
 #include <OSE.h>
 #include "gettext.h"
+#include <NewLimits.h>
 
 
 //----------- Define static vars -------------//
@@ -674,7 +675,7 @@ void FirmCamp::train_unit()
 
 	//------- increase the commander's combat level ---------//
 
-	if( overseerUnit->skill.combat_level < 100 )
+	if( overseerUnit->skill.combat_level < MAX_COMBAT_LEVEL_THROUGH_TRAINING )
 	{
 		incValue = 20 * (int) overseerUnit->hit_points / overseerUnit->max_hit_points
 					  * (100+overseerUnit->skill.skill_potential*2) / 100;

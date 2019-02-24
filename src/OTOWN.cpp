@@ -53,6 +53,7 @@
 // ##### end Gilbert 9/10 ######//
 #include <OSERES.h>
 #include <OLOG.h>
+#include <NewLimits.h>
 
 
 //--------- Begin of function Town::Town ----------//
@@ -2052,7 +2053,7 @@ int Town::create_rebel_unit(int raceId, int isLeader)
 		int combatLevel 	  = 10 + population*2 + misc.random(10);		// the higher the population is, the higher the combat level will be
 		int leadershipLevel = 10 + population   + misc.random(10);		// the higher the population is, the higher the combat level will be
 
-		unitPtr->set_combat_level( MIN(combatLevel, 100) );
+		unitPtr->set_combat_level( MIN(combatLevel, MAX_COMBAT_LEVEL) );
 
 		unitPtr->skill.skill_id 	= SKILL_LEADING;
 		unitPtr->skill.skill_level = MIN(leadershipLevel, 100);
@@ -2918,7 +2919,7 @@ int Town::mobilize_defender(int attackerNationRecno)
 
 	int combatLevel = town_combat_level + misc.random(20) - 10;		// -10 to +10 random difference
 
-	combatLevel = MIN(combatLevel, 100);
+	combatLevel = MIN(combatLevel, MAX_COMBAT_LEVEL);
 	combatLevel = MAX(combatLevel, 10);
 
 	unitPtr->set_combat_level(combatLevel);

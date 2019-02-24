@@ -34,6 +34,7 @@
 #include <OINFO.h>
 #include <OTOWN.h>
 #include <OLOG.h>
+#include <NewLimits.h>
 
 //------- Begin of function Town::think_independent_town --------//
 //
@@ -207,7 +208,7 @@ int Town::form_new_nation()
 	kingUnit->skill.skill_id = SKILL_LEADING;
 	kingUnit->skill.skill_level = 50+misc.random(51);
 
-	kingUnit->set_combat_level(70+misc.random(31));
+	kingUnit->set_combat_level(70+misc.random(NEW_KINGDOM_MAX_COMBAT_LEVEL - 69));
 
 	nation_array[nationRecno]->set_king(kingUnitRecno, 1);		// 1-this is the first king of the nation
 
@@ -407,7 +408,7 @@ int Town::independent_unit_join_nation(int raceId, int toNationRecno)
 				skillLevel = misc.random(50);
 
 			combatLevel = skillLevel + misc.random(40) - 20;
-         combatLevel = MIN(combatLevel, 100);
+         combatLevel = MIN(combatLevel, NEW_KINGDOM_MAX_COMBAT_LEVEL);
 			combatLevel = MAX(combatLevel, 10);
 			break;
 

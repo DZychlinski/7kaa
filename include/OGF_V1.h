@@ -114,7 +114,7 @@ public:
 
 	//----------- AI vars ------------//
 
-	char	town_combat_level;						// combat level of the people in this town
+	short	town_combat_level;						// combat level of the people in this town
 	char	has_product_supply[MAX_PRODUCT];		// whether this town has the supply of these products
 	char	no_neighbor_space;						// 1 if there is no space to build firms/towns next to this town
 

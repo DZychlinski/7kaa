@@ -38,6 +38,7 @@
 #include <OSERES.h>
 #include <OSYS.h>
 #include <OWARPT.h>
+#include <NewLimits.h>
 
 #ifdef NO_DEBUG_UNIT
 #undef err_when
@@ -881,7 +882,7 @@ void Unit::gain_experience()
 
 	//------ increase combat skill -------//
 
-	err_when(skill.combat_level<0 || skill.combat_level>100);
+	err_when(skill.combat_level<0 || skill.combat_level>MAX_COMBAT_LEVEL);
 
 	inc_minor_combat_level(6);
 

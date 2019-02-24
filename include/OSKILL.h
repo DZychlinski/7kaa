@@ -52,7 +52,7 @@ enum { SKILL_CONSTRUCTION=1,
 class Skill
 {
 public:
-	char combat_level;
+	short combat_level;
 	char skill_id;
 	char skill_level;		// if the unit is a town defender, this var is temporary used for storing the loyalty that will be added back to the town if the defender returns to the town
 

@@ -47,6 +47,7 @@
 #include <OREMOTE.h>
 #include <OSYS.h>
 #include "gettext.h"
+#include <NewLimits.h>
 
 #if(GAME_FRAMES_PER_DAY!=FRAMES_PER_DAY)
 #error
@@ -274,7 +275,7 @@ void Unit::init_unit_id(int unitId)
 
 	//--- if this unit is a weapon unit with multiple versions ---//
 
-	set_combat_level(100);     // set combat level default to 100, for human units, it will be adjusted later by individual functions
+	set_combat_level(MAX_COMBAT_LEVEL);     // set combat level default to 100, for human units, it will be adjusted later by individual functions
 
 	int techLevel;
 	if( nation_recno &&
@@ -1001,7 +1002,7 @@ void Unit::next_day()
 	err_when( max_hit_points == 0 );
 
    err_when( skill.combat_level<=0 );
-	err_when( skill.combat_level>100 );
+	err_when( skill.combat_level>MAX_COMBAT_LEVEL );
 
 	err_when( unit_mode==UNIT_MODE_REBEL && spy_recno );			// no rebel spies
 	err_when( unit_mode==UNIT_MODE_REBEL && nation_recno );		// all rebels must be independent units
@@ -1019,8 +1020,8 @@ void Unit::next_day()
 
 #else		// fix bug on fly in the release version
 
-	if( skill.combat_level > 100 )
-		skill.combat_level = 100;
+	if( skill.combat_level > MAX_COMBAT_LEVEL )
+		skill.combat_level = MAX_COMBAT_LEVEL;
 
 #endif
 }
@@ -1819,7 +1820,7 @@ void Unit::inc_minor_combat_level(int incLevel)
 
    if( skill.combat_level_minor > 100 )
    {
-      if( skill.combat_level < 100 )
+      if( skill.combat_level < MAX_COMBAT_LEVEL )
          set_combat_level(skill.combat_level+1);
 
       skill.combat_level_minor -= 100;
@@ -1851,7 +1852,7 @@ void Unit::inc_minor_skill_level(int incLevel)
 //
 void Unit::set_combat_level(int combatLevel)
 {
-	err_when( combatLevel<=0 || combatLevel>100 );
+	err_when( combatLevel<=0 || combatLevel>MAX_COMBAT_LEVEL );
 
    skill.combat_level = combatLevel;
 

@@ -252,7 +252,7 @@ static void visit_unit(Visitor *v, Unit *u)
 	visit<float>(v, &u->hit_points);
 	visit<int16_t>(v, &u->max_hit_points);
 
-	visit<int8_t>(v, &u->skill.combat_level);
+	visit<int16_t>(v, &u->skill.combat_level);
 	visit<int8_t>(v, &u->skill.skill_id);
 	visit<int8_t>(v, &u->skill.skill_level);
 	visit<uint8_t>(v, &u->skill.combat_level_minor);
@@ -479,7 +479,7 @@ static void visit_trade_stop(Visitor *v, TradeStop *ts)
 template <typename Visitor>
 static void visit_attack_info(Visitor *v, AttackInfo *ai)
 {
-	visit<uint8_t>(v, &ai->combat_level);
+	visit<uint16_t>(v, &ai->combat_level);
 	visit<uint8_t>(v, &ai->attack_delay);
 	visit<uint8_t>(v, &ai->attack_range);
 	visit<uint8_t>(v, &ai->attack_damage);

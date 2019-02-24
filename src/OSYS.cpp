@@ -99,6 +99,7 @@
 #include <unistd.h>
 #endif
 #include "gettext.h"
+#include <NewLimits.h>
 
 DBGLOG_DEFAULT_CHANNEL(Sys);
 
@@ -1888,7 +1889,7 @@ void Sys::detect_cheat_key(unsigned scanCode, unsigned skeyState)
          {
             Unit* unitPtr = unit_array[unit_array.selected_recno];
 
-            unitPtr->set_combat_level( MIN(100, unitPtr->skill.combat_level+20) );
+            unitPtr->set_combat_level( MIN(MAX_COMBAT_LEVEL, unitPtr->skill.combat_level+20) );
          }
          break;
 

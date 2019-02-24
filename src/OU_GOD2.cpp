@@ -25,6 +25,7 @@
 #include <ORACERES.h>
 #include <OF_CAMP.h>
 #include <OU_GOD.h>
+#include <NewLimits.h>
 
 //------- Begin of function UnitGod::process_ai --------//
 
@@ -374,7 +375,7 @@ void UnitGod::think_maya_god()
 		{
 			Unit* unitPtr = unit_array[firmPtr->overseer_recno];
 
-			if( unitPtr->race_id == RACE_MAYA && unitPtr->skill.combat_level < 100 )
+			if( unitPtr->race_id == RACE_MAYA && unitPtr->skill.combat_level < MAX_COMBAT_LEVEL )
 				curRating += 10;
 		}
 
@@ -382,7 +383,7 @@ void UnitGod::think_maya_god()
 
 		for( int j=firmPtr->worker_count-1 ; j>=0 ; j--, workerPtr++ )
 		{
-			if( workerPtr->race_id == RACE_MAYA && workerPtr->combat_level < 100 )
+			if( workerPtr->race_id == RACE_MAYA && workerPtr->combat_level < MAX_COMBAT_LEVEL )
 				curRating += 5;
 		}
 

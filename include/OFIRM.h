@@ -106,7 +106,7 @@ public:
 	char  skill_level_minor;
 	char  skill_potential;
 
-	char  combat_level;
+	short  combat_level;
 	char  combat_level_minor;
 
 	short spy_recno;

@@ -42,6 +42,7 @@
 #include <OREMOTE.h>
 #include <OSERES.h>
 #include "gettext.h"
+#include <NewLimits.h>
 
 //------------- Define coordinations -----------//
 
@@ -275,7 +276,7 @@ int FirmInn::hire(short recNo)
 
 	memcpy( &(unitPtr->skill), &(innUnit->skill), sizeof(Skill) );
 
-	err_when( innUnit->skill.combat_level<=0 || innUnit->skill.combat_level>100 );
+	err_when( innUnit->skill.combat_level<=0 || innUnit->skill.combat_level>MAX_COMBAT_LEVEL );
 
 	unitPtr->set_combat_level( innUnit->skill.combat_level );
 

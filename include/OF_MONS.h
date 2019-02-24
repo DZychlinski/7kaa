@@ -50,7 +50,7 @@ public:
 	char  _unused;
 	short mobile_unit_recno;		// unit recno of this monster when it is a mobile unit
 											// this is only used as a reference for soldiers to find their leaders
-	char  combat_level;
+	short  combat_level;
 	short hit_points;
 	short	max_hit_points;
 

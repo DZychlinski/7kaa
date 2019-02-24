@@ -32,6 +32,7 @@
 #include <OU_GOD.h>
 #include <OWEATHER.h>
 #include <OTORNADO.h>
+#include <NewLimits.h>
 
 //--------- Define static vars ----------//
 
@@ -605,8 +606,8 @@ void UnitGod::maya_cast_power(int unitRecno, int divider)
 
 		int newCombatLevel = unitPtr->skill.combat_level + changePoints/divider;
 
-		if( newCombatLevel > 100 )
-			newCombatLevel = 100;
+		if( newCombatLevel > MAX_COMBAT_LEVEL )
+			newCombatLevel = MAX_COMBAT_LEVEL;
 
 		float oldHitPoints = unitPtr->hit_points;
 
@@ -664,8 +665,8 @@ void UnitGod::maya_cast_power(Worker* workerPtr, int nationRecno, int divider)
 
 		int newCombatLevel = workerPtr->combat_level + MAX(1, changePoints/divider);
 
-		if( newCombatLevel > 100 )
-			newCombatLevel = 100;
+		if( newCombatLevel > MAX_COMBAT_LEVEL )
+			newCombatLevel = MAX_COMBAT_LEVEL;
 
 		workerPtr->combat_level = newCombatLevel;
 	}

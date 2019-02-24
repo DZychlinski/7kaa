@@ -54,6 +54,7 @@
 #include <OUNITRES.h>
 #include <locale.h>
 #include "gettext.h"
+#include <NewLimits.h>
 
 
 //---------- define static member vars -------------//
@@ -1016,7 +1017,7 @@ void Firm::assign_worker(int workerUnitRecno)
 	workerPtr->combat_level = unitPtr->skill.combat_level;
 	workerPtr->hit_points   = (int) unitPtr->hit_points;
 
-	err_when( workerPtr->combat_level <= 0 || workerPtr->combat_level > 100 );
+	err_when( workerPtr->combat_level <= 0 || workerPtr->combat_level > MAX_COMBAT_LEVEL);
 
 	err_when( workerPtr->hit_points < 0 );
 
@@ -2471,7 +2472,7 @@ int Firm::create_worker_unit(Worker& thisWorker)
 	unitPtr->set_combat_level(thisWorker.combat_level);
 	unitPtr->skill.combat_level_minor = thisWorker.combat_level_minor;
 
-	err_when( unitPtr->skill.combat_level<=0 || unitPtr->skill.combat_level>100 );
+	err_when( unitPtr->skill.combat_level<=0 || unitPtr->skill.combat_level>MAX_COMBAT_LEVEL );
 
 	unitPtr->loyalty    = unitLoyalty;
 	unitPtr->hit_points = thisWorker.hit_points;
@@ -3695,7 +3696,7 @@ Worker::Worker()
 short Worker::max_hit_points()
 {
 	err_when( combat_level <= 0 );
-	err_when( combat_level > 100 );
+	err_when( combat_level > MAX_COMBAT_LEVEL );
 
 	return (int) unit_res[unit_id]->hit_points * combat_level / 100;
 }

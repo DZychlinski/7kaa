@@ -48,6 +48,7 @@
 #include <vga_util.h>
 #include <CmdLine.h>
 #include <FilePath.h>
+#include <NewLimits.h>
 
 //---------- define static functions -------------//
 
@@ -889,7 +890,7 @@ int Battle::create_unit(int townRecno, int unitId, int rankId)
 		case RANK_KING:
 			unitPtr->skill.set_skill(SKILL_LEADING);
 			unitPtr->skill.skill_level = 100;
-			unitPtr->set_combat_level(100);
+			unitPtr->set_combat_level(KING_INITIAL_COMBAT_LEVEL);
 			break;
 
 		case RANK_GENERAL:
