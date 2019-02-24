@@ -702,7 +702,7 @@ void FirmCamp::train_unit()
 
 		//------- increase worker skill -----------//
 
-		if( workerPtr->combat_level < overseerSkill )
+		if( workerPtr->combat_level < overseerSkill && workerPtr->combat_level < MAX_COMBAT_LEVEL_THROUGH_TRAINING)
 		{
 			incValue = MAX(20, overseerSkill-workerPtr->combat_level)
 						  * workerPtr->hit_points / workerPtr->max_hit_points()
