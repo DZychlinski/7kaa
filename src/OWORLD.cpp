@@ -43,6 +43,7 @@
 #include <OSERES.h>
 #include <OREMOTE.h>
 #include <ONEWS.h>
+#include <NewLimits.h>
 
 
 //------------ Define static class variables ------------//
@@ -64,8 +65,8 @@ World::World()
 
    //------- initialize matrix objects -------//
 
-   map_matrix  = new MapMatrix;
-   zoom_matrix = new ZoomMatrix;
+	map_matrix = NULL;
+	zoom_matrix = NULL;
 }
 //------------- End of function World::World -----------//
 
@@ -95,6 +96,29 @@ World::~World()
 
 void World::init()
 {
+	//------- initialize matrix objects -------//
+
+	if (map_matrix)
+	{
+		delete map_matrix;
+	}
+
+	if (zoom_matrix)
+	{
+		delete zoom_matrix;
+	}
+
+	MAP_WIDTH = ACTIVE_MAP_SIZE;
+	MAP_HEIGHT = ACTIVE_MAP_SIZE;
+
+	seek_path.deinit();
+	seek_path.init(MAX_BACKGROUND_NODE);
+	seek_path_reuse.deinit();
+	seek_path_reuse.init(MAX_BACKGROUND_NODE);
+
+	map_matrix = new MapMatrix;
+	zoom_matrix = new ZoomMatrix;
+
 	//----------- initialize vars -------------//
 
 	scan_fire_x = 0;
@@ -192,7 +216,7 @@ void World::process()
 	}
 	if( lightning_signal == 106 && config.weather_effect)
 	{
-		lightning_strike(misc.random(MAX_MAP_WIDTH), misc.random(MAX_MAP_HEIGHT), 1);
+		lightning_strike(misc.random(MAP_WIDTH), misc.random(MAP_HEIGHT), 1);
 	}
 	if(lightning_signal == 100)
 		lightning_signal = 5 + misc.random(10);
@@ -498,7 +522,7 @@ void World::explore(int xLoc1, int yLoc1, int xLoc2, int yLoc2)
 
 				//-------- draw pixel ----------//
 
-				writePtr = imageBuf+MAP_WIDTH*yLoc+xLoc;
+				writePtr = imageBuf + ((MAP_M_WIDTH + 1)*(int)(yLoc*MINIMAP_MULTIPLIER)) + (int)(xLoc*MINIMAP_MULTIPLIER);
 
 				switch( world.map_matrix->map_mode )
 				{

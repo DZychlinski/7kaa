@@ -23,3 +23,5 @@ New things/settings/limits introduced in this repository
 * Units trained inside Forts cannot be trained above 70 (was 100) combat skill (140 HP)
 * Increased maximum combat skill of human units from 100 to 200
 	This breaks save game compatibility with previous versions
+* Added bigger map sizes: 400, 600, 800, 1000 (original is 200)
+* New default map size is 400

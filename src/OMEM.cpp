@@ -89,8 +89,8 @@ Mem::Mem()
 char* Mem::add(unsigned memSize, const char* fileName, int fileLine)
 {
 	// ###### begin Gilbert 29/8 ######//
-	//err_when( memSize > 1000000 );		//**BUGHERE, for temporary debugging only
-	err_when( memSize > 0x800000 );
+	// 14000000 because MAX_SIZE_LARGE * MAP_SIZE_LARGE * sizeof(Location) == 14000000.
+	err_when( memSize > 14000000);
 	// ###### end Gilbert 29/8 ######//
 
    //----------- build up memory pointer table ---------//
@@ -275,7 +275,8 @@ char* Mem::resize_keep_data(void *orgPtr, unsigned orgSize, unsigned newSize, co
 //
 char* Mem::resize(void *orgPtr, unsigned memSize, const char* fileName, int fileLine)
 {
-	err_when( memSize > 1000000 );		//**BUGHERE, for temporary debugging only
+	// 14000000 because MAX_SIZE_LARGE * MAP_SIZE_LARGE * sizeof(Location) == 14000000.
+	err_when( memSize > 14000000);		//**BUGHERE, for temporary debugging only
 
    if( orgPtr == NULL )
       return add( memSize, fileName, fileLine);

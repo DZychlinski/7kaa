@@ -15,4 +15,12 @@ const int MAX_COMBAT_LEVEL = 200;
 // This is initial combat level for new kingdoms, not their absolute max level.
 const int NEW_KINGDOM_MAX_COMBAT_LEVEL = 100;
 
+const int MAP_ORIGINAL_SIZE = 200;
+const int MAP_SMALL_SIZE = 400;
+const int MAP_MEDIUM_SIZE = 600;
+const int MAP_BIG_SIZE = 800;
+const int MAP_LARGE_SIZE = 1000;
+
+const int ACTIVE_MAP_SIZE = MAP_SMALL_SIZE;
+
 #endif //__NEWLIMITS_H

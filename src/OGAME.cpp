@@ -122,6 +122,7 @@ int Game::init(int loadGameCall)
 	mouse_cursor.set_icon(CURSOR_WAITING);
 
 	//------- init game data class ---------//
+	world.init();
 
 	game_set.open_set(1);             // open the default game set
 
@@ -176,7 +177,6 @@ int Game::init(int loadGameCall)
    //------ init game surface class ----------//
 
 	power.init();
-   world.init();
    battle.init();
    news_array.init();
 
