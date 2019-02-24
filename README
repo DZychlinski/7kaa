@@ -24,4 +24,5 @@ New things/settings/limits introduced in this repository
 * Increased maximum combat skill of human units from 100 to 200
 	This breaks save game compatibility with previous versions
 * Added bigger map sizes: 400, 600, 800, 1000 (original is 200)
+	Code taken from: https://github.com/artur-kink/7kaa/tree/mapsize
 * New default map size is 400
