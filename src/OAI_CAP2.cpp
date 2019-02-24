@@ -29,6 +29,7 @@
 #include <OFIRMALL.h>
 #include <OTALKRES.h>
 #include <ONATION.h>
+#include <NewLimits.h>
 
 //--------- Begin of function Nation::think_capture_new_enemy_town --------//
 //
@@ -351,7 +352,7 @@ Town* Nation::think_capture_enemy_town_target(Town* capturerTown)
 
 		//-- AI Aggressive is set above Low, than the AI will try to capture the player's town first ---//
 
-		if( !targetTown->ai_town )
+		if( AI_COMMANDS_PLAYER_NATION || !targetTown->ai_town )
 		{
 			if( game.game_mode == GAME_TUTORIAL )		// next attack the player in a tutorial game
 			{

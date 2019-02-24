@@ -36,6 +36,10 @@
 #include <OTALKMSG.h>
 #endif
 
+#ifndef __NEWLIMITS_H
+#include <NewLimits.h>
+#endif
+
 //---------- Define constant -----------//
 
 enum { NATION_OWN=1, NATION_REMOTE, NATION_AI };       // NATION_MISC=Government
@@ -373,7 +377,7 @@ public:
 	int			goal_total_score_achieved();
 
 	int			is_own()    	{ return nation_type==NATION_OWN;    }
-	int			is_ai()			{ return nation_type==NATION_AI;		 }
+	int			is_ai()			{ return AI_COMMANDS_PLAYER_NATION || nation_type==NATION_AI;		 }
 	int			is_remote() 	{ return nation_type==NATION_REMOTE; }
 
 public:

@@ -95,7 +95,7 @@ void Town::init(int nationRecno, int raceId, int xLoc, int yLoc)
 
 	region_id = world.get_region_id( center_x, center_y );
 
-	ai_town = !nation_recno || nation_array[nation_recno]->nation_type == NATION_AI;    // nation_recno==0 for independent towns
+	ai_town = AI_COMMANDS_PLAYER_NATION || !nation_recno || nation_array[nation_recno]->nation_type == NATION_AI;    // nation_recno==0 for independent towns
 	ai_link_checked = 1;			// check the linked towns and firms connected only if ai_link_checked==0
 
 	independent_unit_join_nation_min_rating = 100 + misc.random(150);		// the minimum rating a nation must have in order for an independent unit to join it
@@ -767,7 +767,7 @@ void Town::set_nation(int newNationRecno)
 	{
 		ai_town = 1;
 	}
-	else if( nation_array[nation_recno]->nation_type==NATION_AI )
+	else if( AI_COMMANDS_PLAYER_NATION || nation_array[nation_recno]->nation_type==NATION_AI )
 	{
 		ai_town = 1;
 		nation_array[nation_recno]->add_town_info(town_recno);

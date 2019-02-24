@@ -33,6 +33,7 @@
 #include <ONATIONA.h>
 #include <OREMOTE.h>
 #include <OLOG.h>
+#include <NewLimits.h>
 
 //### begin alex 22/9 ###//
 #ifdef DEBUG
@@ -340,7 +341,7 @@ void NationArray::process()
 				continue;
 
 			// ###### begin Gilbert 6/9 ######//
-			if( nationPtr->nation_type == NATION_AI )
+			if( AI_COMMANDS_PLAYER_NATION || nationPtr->nation_type == NATION_AI )
 			{
 				#ifdef DEBUG
 				unsigned long profileAiStartTime = misc.get_time();

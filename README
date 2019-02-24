@@ -26,3 +26,4 @@ New things/settings/limits introduced in this repository
 * Added bigger map sizes: 400, 600, 800, 1000 (original is 200)
 	Code taken from: https://github.com/artur-kink/7kaa/tree/mapsize
 * New default map size is 400
+* Added ability for Player kingdom to be commanded by AI (disabled by default)

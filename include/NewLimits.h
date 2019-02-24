@@ -6,6 +6,7 @@
 
 const bool PAUSE_WHEN_IN_FOREGROUND = false;
 const bool AI_CAN_SURRENDER = false;
+const bool AI_COMMANDS_PLAYER_NATION = false;
 
 const int MONSTER_VARIETY = 8;
 

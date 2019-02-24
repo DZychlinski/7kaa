@@ -140,7 +140,7 @@ void Unit::init(int unitId, int nationRecno, int rankId, int unitLoyalty, int st
    //------- init ai_unit ----------//
 
    if( nation_recno )
-      ai_unit = nation_array[nation_recno]->nation_type == NATION_AI;
+      ai_unit = AI_COMMANDS_PLAYER_NATION || nation_array[nation_recno]->nation_type == NATION_AI;
    else
       ai_unit = 0;
 
