@@ -10,6 +10,7 @@ noinst_HEADERS = \
 	KEY.h \
 	LocaleRes.h \
 	MPTYPES.h \
+	NewLimits.h \
 	OANLINE.h \
 	OAUDIO.h \
 	OBATTLE.h \

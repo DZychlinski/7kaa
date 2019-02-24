@@ -1,78 +1,15 @@
-Seven Kingdoms: Ancient Adversaries
------------------------------------
-
-Release version 2.15.2-dev
-Project website: www.7kfans.com
-
-This is a GPL release of the Seven Kingdoms: Ancient Adversaries thanks to
-Enlight Software which granted the ability to license the game under a
-free and open source license in 2009. See the file "COPYING" for the
-details of the license. We are indebted to Enlight for making the 7kfans
-project possible and giving a new chance to build a community for fans
-of the game.
-
-Summary of changes from 2.15.0 to 2.15.1
----------
- * Fixed desync on mobilizing workers.
- * Fixed desync on troop sortie, by making troop sorting deterministic.
- * Fixed desync on AI attack planning, by making AI fort sorting deterministic.
- * Fixed error that caused multiplayer save files appear out of sync.
- * Changed the Button class to not block on holding down the mouse button,
-   smoothing multiplayer games when alot of clicking may be happening.
- * Prevent mobilizing foreign workers from your Firms, however they may be
-   fired back to their home town.
- * Only enable mobilize worker button when the firm is staffed with non-foreign
-   workers.
- * Prefer IPv4 addressing for 7kfans.com match-making.
- * Fixed ambiguity in some translations.
- * Repack structures for Crc checking due to pointer sizing.
- * Improved cross-compilation and platform support.
- * Uppercased the data and user files, as they are supported in the code,
-   maintaining consistency and without needing to guess case.
- * Fixed missing Fryhtan encyclopedia picture on some systems.
- * Fixed observation mode visibility when playing a replay.
- * Added support for center and right paragraph justification.
- * Packagers please note that the music files must be in upper-case now, see
-   the latest download for the music.
+For original README, please visit source repository from which it was forked:
+https://github.com/the3dfxdude/7kaa
 
 
-System Requirements
----------
+Introduction
+------------
 
-Supported systems
-* Windows
-* Linux
-* MacOS
-
-For the best results in multiplayer, you should all play on the same exact
-build and operating system. Testing as of late showed that playing mixed games
-of Windows and Linux platforms is unstable.
+Intention of this fork is to change some (or many?) initial values of original
+game and to make some things harder (but not necessarily more balanced).
+This readme should be kept in sync with new changes as they are commited.
 
 
-Building the game
----------
-
-Required dependencies
-* GCC 4.6+ (C++11 compliant compiler)
-* SDL 2.0.8 (http://libsdl.org/)
-* enet 1.3.xx (http://enet.bespin.org/)
-* OpenAL-soft or equivalent driver (http://kcat.strangesoft.net/openal.html)
-
-Optional dependencies
-* Autoconf 2.65 (when using git snapshot)
-* libcurl for full 7kfans multiplayer integration
-* gettext 0.19
-* Game music: 7kaa-music-2.15
-  -> Packagers: Copy music into program data folder or PACKAGE_DATA_DIR
-  -> Make sure the file names are in upper-case
-* NSIS for building a Windows installer
-
-
-Running locally from source build
---------
-
-To run the game from the build directory, you need to point to the game data
-folder. The game data folder is set by the environment variable SKDATA. In
-a bash shell, this can be accomplished by
-$ SKDATA=data src/7kaa
-
+New things/settings/limits introduced in this repository
+--------------------------------------------------------
+* Increased monster variety on maps from 3 to 8

@@ -28,10 +28,12 @@
 #include <ORESDB.h>
 #endif
 
+#include <NewLimits.h>
+
 //----------- Define constant ------------//
 
 enum { MAX_MONSTER_LEVEL = 9 };
-enum { MAX_ACTIVE_MONSTER = 3 };		// No. of monster type in each game
+enum { MAX_ACTIVE_MONSTER = MONSTER_VARIETY };		// No. of monster type in each game
 
 //----------- Define constant ------------//
 
