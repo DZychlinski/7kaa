@@ -81,7 +81,7 @@ void Nation::think_diplomacy()
 
 	//---- think about offering to purchase throne ----//
 
-	if( think_request_surrender() )
+	if( AI_CAN_SURRENDER && think_request_surrender() )
 		return;
 }
 //------ End of function Nation::think_diplomacy ------//

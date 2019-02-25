@@ -248,7 +248,7 @@ void Nation::process_ai()
 		if( think_succeed_king() )
 			return;
 
-		if( think_surrender() )
+		if( AI_CAN_SURRENDER && think_surrender() )
 			return;
 
 		defeated();

@@ -254,17 +254,20 @@ void TalkMsg::process_accepted_reply()
 
 		case TALK_REQUEST_SURRENDER:
 		{
-			float offeredAmt = (float) talk_para1 * 10;		// * 10 is to restore its original value. It has been divided by 10 to cope with the upper limit of <short>
+			if (AI_CAN_SURRENDER) {
+				float offeredAmt = (float)talk_para1 * 10;		// * 10 is to restore its original value. It has been divided by 10 to cope with the upper limit of <short>
 
-			toNation->add_income(INCOME_TRIBUTE, offeredAmt);
-			fromNation->add_expense(EXPENSE_TRIBUTE, offeredAmt);
+				toNation->add_income(INCOME_TRIBUTE, offeredAmt);
+				fromNation->add_expense(EXPENSE_TRIBUTE, offeredAmt);
 
-			toNation->surrender(from_nation_recno);
+				toNation->surrender(from_nation_recno);
+			}
 			break;
 		}
 
 		case TALK_SURRENDER:
-			fromNation->surrender(to_nation_recno);
+			if (AI_CAN_SURRENDER)
+				fromNation->surrender(to_nation_recno);
 			break;
 
 		default:

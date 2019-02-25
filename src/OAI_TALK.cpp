@@ -143,7 +143,9 @@ int Nation::consider_talk_msg(TalkMsg* talkMsg)
 			return consider_give_tech(talkMsg);
 
 		case TALK_REQUEST_SURRENDER:
-			return consider_accept_surrender_request(talkMsg);
+			if (AI_CAN_SURRENDER)
+				return consider_accept_surrender_request(talkMsg);
+			return 0;
 
 		default:
 			err_here();
