@@ -27,3 +27,8 @@ New things/settings/limits introduced in this repository
 	Code taken from: https://github.com/artur-kink/7kaa/tree/mapsize
 * New default map size is 400
 * Added ability for Player kingdom to be commanded by AI (disabled by default)
+
+
+Miscellaneous
+------------
+Solution was moved to different directory and updated to Visual Studio 2019.
