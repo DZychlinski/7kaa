@@ -34,6 +34,7 @@
 #include <OINFO.h>
 #include <OTOWN.h>
 #include <OLOG.h>
+#include <ConfigAdv.h>
 #include <NewLimits.h>
 
 //------- Begin of function Town::think_independent_town --------//
@@ -140,7 +141,7 @@ int Town::think_independent_form_new_nation()
 
 	//---- don't form if the world is already densely populated ----//
 
-	if( nation_array.all_nation_population > 60 * MAX_NATION )
+	if( nation_array.all_nation_population > config_adv.town_ai_emerge_nation_pop_limit )
 		return 0;
 
 	//----------------------------------------------//
@@ -165,7 +166,7 @@ int Town::form_new_nation()
 {
 	err_when( nation_recno );
 
-	if( !nation_array.can_form_new_ai_nation() )
+	if( nation_array.nation_count >= MAX_NATION )
 		return 0;
 
 	//----- determine the race with most population -----//
@@ -215,8 +216,6 @@ int Town::form_new_nation()
 	dec_pop(raceId, 0);		// 0-the unit doesn't have a job
 
 	//------ set the nation of the rebel town -----//
-
-   err_when( rebel_recno );		// rebel has its own function in Rebel, this shouldn't be called
 
 	set_nation(nationRecno);		// set the town at last because set_nation() will delete the Town object
 

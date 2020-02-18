@@ -508,6 +508,10 @@ void Sys::set_view_mode(int viewMode, int viewingNationRecno, int viewingSpyRecn
 
 		info.viewing_spy_recno = viewingSpyRecno;
 	}
+	if( viewMode == MODE_NATION && info.nation_report_mode == NATION_REPORT_CHAT )
+		SDL_StartTextInput();
+	else
+		SDL_StopTextInput();
 
 	view_mode = viewMode;
 	disp_view_mode();
@@ -1015,7 +1019,7 @@ void Sys::disp_zoom()
 	{
 		disp_frames_per_second();
 
-		if( remote.is_enable() && (remote.sync_test_level & 0x40) )
+		if( (remote.is_enable() || remote.is_replay()) && (remote.sync_test_level & 0x40) )
 		{
 			// Warn user we are out of sync
 			vga.use_back();

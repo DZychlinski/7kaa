@@ -556,8 +556,6 @@ void Unit::hit_firm(Unit* attackUnit, int targetXLoc, int targetYLoc, float atta
 	if(!locPtr->is_firm())
 		return;	// do nothing if no firm there
 
-	Nation *attackNation = nation_array[attackNationRecno];
-
 	//----------- attack firm ------------//
 	err_when(!locPtr->firm_recno());
 	Firm *targetFirm = firm_array[locPtr->firm_recno()];
@@ -571,10 +569,10 @@ void Unit::hit_firm(Unit* attackUnit, int targetXLoc, int targetYLoc, float atta
 	if( attackUnit!=NULL && attackUnit->cur_action!=SPRITE_DIE &&
 		 targetFirm->nation_recno != attackNationRecno )		// the target and the attacker's nations are different (it's possible that when a unit who has just changed nation has its bullet hitting its own nation)
 	{
-		if( attackNation && targetFirm->nation_recno )
+		if( attackNationRecno && targetFirm->nation_recno )
 		{
 			//### trevor 29/9 ###//
-			attackNation->set_at_war_today();
+			nation_array[attackNationRecno]->set_at_war_today();
 			nation_array[targetFirm->nation_recno]->set_at_war_today(attackUnit->sprite_recno);
 			//### trevor 29/9 ###//
 		}
@@ -593,8 +591,8 @@ void Unit::hit_firm(Unit* attackUnit, int targetXLoc, int targetYLoc, float atta
 
 		//------ increase battling fryhtan score -------//
 
-		if( attackNation && targetFirm->firm_id == FIRM_MONSTER )
-			attackNation->kill_monster_score += (float) 0.01;
+		if( attackNationRecno && targetFirm->firm_id == FIRM_MONSTER )
+			nation_array[attackNationRecno]->kill_monster_score += (float) 0.01;
 	}
 
 	//---------- add indicator on the map ----------//
@@ -622,11 +620,10 @@ void Unit::hit_firm(Unit* attackUnit, int targetXLoc, int targetYLoc, float atta
 
 		if( targetFirm->nation_recno )
 		{
-			if( attackNation )
-				attackNation->enemy_firm_destroyed++;
+			if( attackNationRecno )
+				nation_array[attackNationRecno]->enemy_firm_destroyed++;
 
-			if( targetFirm->nation_recno )
-				nation_array[targetFirm->nation_recno]->own_firm_destroyed++;
+			nation_array[targetFirm->nation_recno]->own_firm_destroyed++;
 		}
 
 		else if( targetFirm->firm_id == FIRM_MONSTER )
@@ -665,8 +662,6 @@ void Unit::hit_town(Unit* attackUnit, int targetXLoc, int targetYLoc, float atta
 	if(!locPtr->is_town())
 		return;	// do nothing if no town there
 
-	Nation *attackNation = nation_array[attackNationRecno];
-
 	//----------- attack town ----------//
 
 	err_when(!locPtr->town_recno());
@@ -695,10 +690,10 @@ void Unit::hit_town(Unit* attackUnit, int targetXLoc, int targetYLoc, float atta
 
 		//------- change to hostile relation -------//
 
-		if( attackNation && targetTown->nation_recno )
+		if( attackNationRecno && targetTown->nation_recno )
 		{
 			//### trevor 29/9 ###//
-			attackNation->set_at_war_today();
+			nation_array[attackNationRecno]->set_at_war_today();
 			nation_array[targetTown->nation_recno]->set_at_war_today(attackUnit->sprite_recno);
 			//### trevor 29/9 ###//
 		}
@@ -826,38 +821,10 @@ float Unit::actual_damage()
 	//
 	//------------------------------------------------------------------------//
 
-	if( leader_unit_recno )
+	if( is_leader_in_range() )
 	{
-		if( unit_array.is_deleted(leader_unit_recno) )
-		{
-			leader_unit_recno = 0;
-		}
-		else
-		{
-			Unit* leaderUnit = unit_array[leader_unit_recno];
-			int	leaderXLoc, leaderYLoc;
-
-			if( leaderUnit->is_visible() )
-			{
-				leaderXLoc = cur_x_loc();
-				leaderYLoc = cur_y_loc();
-			}
-			else if( leaderUnit->unit_mode == UNIT_MODE_OVERSEE )
-			{
-				Firm* firmPtr = firm_array[leaderUnit->unit_mode_para];
-
-				leaderXLoc = firmPtr->center_x;
-				leaderYLoc = firmPtr->center_y;
-			}
-			else
-				leaderXLoc = -1;
-
-			if( leaderXLoc >= 0 &&
-				 misc.points_distance(cur_x_loc(), cur_y_loc(), leaderXLoc, leaderYLoc) <= EFFECTIVE_LEADING_DISTANCE )
-			{
-				attackDamage += attackDamage * leaderUnit->skill.skill_level / 100;
-			}
-		}
+		Unit *leaderUnit = unit_array[leader_unit_recno];
+		attackDamage += attackDamage * leaderUnit->skill.skill_level / 100;
 	}
 
 	return (float) attackDamage / ATTACK_SLOW_DOWN;		// lessen all attacking damages, thus slowing down all battles.

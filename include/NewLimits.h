@@ -4,7 +4,6 @@
 // This file contains definitions of new limits introduced to the game.
 // As for now these are compile constants, but should be introduced into Settings menu.
 
-const bool PAUSE_WHEN_IN_FOREGROUND = false;
 const bool AI_CAN_SURRENDER = false;
 const bool AI_COMMANDS_PLAYER_NATION = false;
 

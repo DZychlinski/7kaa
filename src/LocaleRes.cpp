@@ -21,11 +21,14 @@
 //Filename    : LocaleRes.cpp
 //Description : Locale Resources
 
+#ifdef ENABLE_NLS
 #include <libintl.h>
 #include <locale.h>
+#endif
 
 #include <ALL.h>
 #include <ODB.h>
+#include <ConfigAdv.h>
 #include <LocaleRes.h>
 
 //------------- End of function Constructor -------//
@@ -39,6 +42,7 @@ LocaleRes::LocaleRes()
 #ifdef ENABLE_NLS
 	cd = (iconv_t)-1;
 	cd_latin = (iconv_t)-1;
+	cd_from_sdl = (iconv_t)-1;
 #endif
 	in_buf = NULL;
 	out_buf = NULL;
@@ -58,50 +62,20 @@ LocaleRes::~LocaleRes()
 //-------- Begin of function LocaleRes::init -----------//
 //
 #define INIT_BUF_SIZE 2048
-void LocaleRes::init(const char *locale)
+void LocaleRes::init()
 {
 #ifdef ENABLE_NLS
-	setlocale(LC_ALL, locale);
-	char *ctype = setlocale(LC_CTYPE, NULL);
-	if( !ctype )
-		return;
-
-	bindtextdomain(PACKAGE, LOCALE_DIR);
+	const char *env_locale_dir;
+	if( misc.is_file_exist("locale") )
+		bindtextdomain(PACKAGE, "locale");
+	else if( env_locale_dir = getenv("SKLOCALE") )
+		bindtextdomain(PACKAGE, env_locale_dir);
+	else
+		bindtextdomain(PACKAGE, LOCALE_DIR);
 	textdomain(PACKAGE);
 
-	LocaleRec *localeRec;
-	String localeDbName;
-	localeDbName = DIR_RES;
-	localeDbName += "LOCALE.RES";
-	Database localeDbObj(localeDbName, 1);
-	Database *dbLocale = &localeDbObj;
+	load();
 
-	short locale_count = (short) dbLocale->rec_count();
-
-	//------ read in locale information -------//
-
-	int i;
-	for( i=0 ; i<locale_count ; i++ )
-	{
-		localeRec = (LocaleRec*) dbLocale->read(i+1);
-
-		misc.rtrim_fld( lang, localeRec->lang, localeRec->LANG_LEN );
-		if( !misc.str_icmpx(ctype, lang) )
-			continue;
-
-		misc.rtrim_fld( fontset, localeRec->fontset, localeRec->FONTSET_LEN );
-		misc.rtrim_fld( codeset, localeRec->codeset, localeRec->CODESET_LEN );
-		break;
-	}
-
-	if( i >= locale_count )
-	{
-		strcpy(lang, "??");
-		strcpy(codeset, "ISO-8859-1");
-	}
-
-	cd = iconv_open(codeset, "");
-	cd_latin = iconv_open("ISO-8859-1", "");
 	in_buf = mem_add(INIT_BUF_SIZE+1);
 	in_buf_size = INIT_BUF_SIZE;
 	out_buf = mem_add(INIT_BUF_SIZE+1);
@@ -134,6 +108,63 @@ void LocaleRes::deinit()
 	init_flag = 0;
 }
 //------------- End of function LocaleRes::deinit ---------//
+
+
+//----------- Start of function LocaleRes::change_locale ---------//
+//
+void LocaleRes::load()
+{
+#ifdef ENABLE_NLS
+	setlocale(LC_ALL, config_adv.locale);
+	char *ctype = setlocale(LC_CTYPE, NULL);
+	if( !ctype )
+		return;
+
+	LocaleRec *localeRec;
+	String localeDbName;
+	localeDbName = DIR_RES;
+	localeDbName += "LOCALE.RES";
+	Database localeDbObj(localeDbName, 1);
+	Database *dbLocale = &localeDbObj;
+
+	short locale_count = (short) dbLocale->rec_count();
+
+	//------ read in locale information -------//
+
+	int i;
+	for( i=0 ; i<locale_count ; i++ )
+	{
+		localeRec = (LocaleRec*) dbLocale->read(i+1);
+
+		misc.rtrim_fld( lang, localeRec->lang, localeRec->LANG_LEN );
+		if( !misc.str_icmpx(ctype, lang) )
+			continue;
+
+		misc.rtrim_fld( fontset, localeRec->fontset, localeRec->FONTSET_LEN );
+		misc.rtrim_fld( codeset, localeRec->codeset, localeRec->CODESET_LEN );
+		break;
+	}
+
+	if( i >= locale_count )
+	{
+		strcpy(lang, "??");
+		strcpy(codeset, "ISO-8859-1");
+	}
+
+	String tocode(codeset);
+	tocode += "//TRANSLIT";
+
+	if( cd != (iconv_t)-1 )
+		iconv_close(cd);
+	if( cd_latin != (iconv_t)-1 )
+		iconv_close(cd_latin);
+	cd = iconv_open(tocode, "");
+	cd_latin = iconv_open("ISO-8859-1", "");
+	cd_from_sdl = iconv_open("ISO-8859-1//TRANSLIT//IGNORE", "UTF-8");
+#endif
+}
+//------------- End of function LocaleRes::change_locale ---------//
+
 
 #ifdef ENABLE_NLS
 #define BUF_INCR 1000

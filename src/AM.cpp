@@ -109,7 +109,9 @@
 #include <dbglog.h>
 #include <CmdLine.h>
 #include <LocaleRes.h>
+#include <PlayerStats.h>
 #include "gettext.h"
+#include <ConfigAdv.h>
 
 //------- define game version constant --------//
 
@@ -229,13 +231,16 @@ GameSet           game_set;         // no constructor
 Battle            battle;
 Power             power;
 World             world;
+char              scenario_file_name[FilePath::MAX_FILE_PATH+1];
 SaveGameArray     save_game_array;
+nsPlayerStats::PlayerStats playerStats;
 HallOfFame        hall_of_fame;
 // ###### begin Gilbert 23/10 #######//
 OptionMenu			option_menu;
 InGameMenu			in_game_menu;
 // ###### end Gilbert 23/10 #######//
 CmdLine           cmd_line;
+ConfigAdv         config_adv;
 
 //----------- Global Variables -----------//
 
@@ -295,7 +300,7 @@ int main(int argc, char **argv)
 {
 	if (!sys.set_game_dir())
 		return 1;
-	locale_res.init("");
+	locale_res.init();
 	sys.set_config_dir();
 
 	//try to read from CONFIG.DAT, moved to AM.CPP
@@ -305,6 +310,9 @@ int main(int argc, char **argv)
 		new_config_dat_flag = 1;
 		config.init();
 	}
+	config_adv.init();
+	if( config_adv.locale[0] )
+		locale_res.load();
 
 	//----- read command line arguments -----//
 
@@ -359,9 +367,11 @@ int main(int argc, char **argv)
 	case STARTUP_NORMAL:
 		game.main_menu();
 		break;
+#ifndef DISABLE_MULTI_PLAYER
 	case STARTUP_MULTI_PLAYER:
 		game.multi_player_menu(1, cmd_line.join_host);
 		break;
+#endif
 	case STARTUP_TEST:
 		game.init();
 		battle.run_test();

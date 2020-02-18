@@ -405,7 +405,7 @@ void News::nation_surrender()
 	else
 	{
 		// TRANSLATORS: <King 1's Kingdom> has surrendered to <King 2's Kingdom>.
-		snprintf(str, MAX_STR_LEN+1, _("%s's Kingdom%s has surrendered to %s's Kingdom."), king_name1(), nation_color_str1(), king_name2(), nation_color_str2());
+		snprintf(str, MAX_STR_LEN+1, _("%s's Kingdom%s has surrendered to %s's Kingdom%s."), king_name1(), nation_color_str1(), king_name2(), nation_color_str2());
 	}
 }
 //------- End of function News::nation_surrender -----//
@@ -435,7 +435,7 @@ void News::king_die()
 	else
 	{
 		// TRANSLATORS: King <Name> of <King>'s Kingdom<Color> has been slain.
-		snprintf(str, MAX_STR_LEN+1, _("King %s of %s's Kingdom%s has been slain."), king_name1(), nation_name1(), nation_color_str1());
+		snprintf(str, MAX_STR_LEN+1, _("King %s of %s's Kingdom%s has been slain."), king_name1(), king_name1(), nation_color_str1());
 	}
 }
 //------- End of function News::king_die -----//
@@ -487,7 +487,7 @@ const char *firm_destroyed_by_nation[MAX_FIRM_TYPE] =
 	N_("Your Tower of Science near %s has been destroyed by %s's Kingdom%s."),
 	N_("Your War Factory near %s has been destroyed by %s's Kingdom%s."),
 	N_("Your Harbor near %s has been destroyed by %s's Kingdom%s."),
-	N_("Your Fryhtan Lair near %s has been destroyed by %s's Kingdom%s."),
+	("Your Fryhtan Lair near %s has been destroyed by %s's Kingdom%s."),
 };
 const char *firm_destroyed_by_rebels[MAX_FIRM_TYPE] =
 {
@@ -501,7 +501,7 @@ const char *firm_destroyed_by_rebels[MAX_FIRM_TYPE] =
 	N_("Your Tower of Science near %s has been destroyed by Rebels."),
 	N_("Your War Factroy near %s has been destroyed by Rebels."),
 	N_("Your Harbor near %s has been destroyed by Rebels."),
-	N_("Your Fryhtan Lair near %s has been destroyed by Rebels."),
+	("Your Fryhtan Lair near %s has been destroyed by Rebels."),
 };
 const char *firm_destroyed_by_monster[MAX_FIRM_TYPE] =
 {
@@ -515,7 +515,7 @@ const char *firm_destroyed_by_monster[MAX_FIRM_TYPE] =
 	N_("Your Tower of Science near %s has been destroyed by Fryhtans."),
 	N_("Your War Factory near %s has been destroyed by Fryhtans."),
 	N_("Your Harbor near %s has been destroyed by Fryhtans."),
-	N_("Your Fryhtan Lair near %s has been destroyed by Fryhtans."),
+	("Your Fryhtan Lair near %s has been destroyed by Fryhtans."),
 };
 const char *firm_destroyed_by_unknown[MAX_FIRM_TYPE] =
 {
@@ -529,7 +529,7 @@ const char *firm_destroyed_by_unknown[MAX_FIRM_TYPE] =
 	N_("Your Tower of Science near %s has been destroyed."),
 	N_("Your War Factory near %s has been destroyed."),
 	N_("Your Harbor near %s has been destroyed."),
-	N_("Your Fryhtan Lair near %s has been destroyed."),
+	("Your Fryhtan Lair near %s has been destroyed."),
 };
 //------ Begin of function News::firm_destroyed -----//
 //
@@ -552,19 +552,19 @@ void News::firm_destroyed()
 	// ##### patch end Gilbert 10/2 ######//
 	{
 		case DESTROYER_NATION:
-			snprintf(str, MAX_STR_LEN+1, firm_destroyed_by_nation[short_para1-1], town_res.get_name(short_para2), king_name2(), nation_color_str2());
+			snprintf(str, MAX_STR_LEN+1, _(firm_destroyed_by_nation[short_para1-1]), town_res.get_name(short_para2), king_name2(), nation_color_str2());
 			break;
 
 		case DESTROYER_REBEL:
-			snprintf(str, MAX_STR_LEN+1, firm_destroyed_by_rebels[short_para1-1], town_res.get_name(short_para2));
+			snprintf(str, MAX_STR_LEN+1, _(firm_destroyed_by_rebels[short_para1-1]), town_res.get_name(short_para2));
 			break;
 
 		case DESTROYER_MONSTER:
-			snprintf(str, MAX_STR_LEN+1, firm_destroyed_by_monster[short_para1-1], town_res.get_name(short_para2));
+			snprintf(str, MAX_STR_LEN+1, _(firm_destroyed_by_monster[short_para1-1]), town_res.get_name(short_para2));
 			break;
 
 		case DESTROYER_UNKNOWN:
-			snprintf(str, MAX_STR_LEN+1, firm_destroyed_by_unknown[short_para1-1], town_res.get_name(short_para2));
+			snprintf(str, MAX_STR_LEN+1, _(firm_destroyed_by_unknown[short_para1-1]), town_res.get_name(short_para2));
 			break;
 	}
 }
@@ -583,7 +583,7 @@ const char *firm_captured_by_spy[MAX_FIRM_TYPE] =
 	N_("Your Tower of Science near %s has been captured by a spy from %s's Kingdom%s."),
 	N_("Your War Factory near %s has been captured by a spy from %s's Kingdom%s."),
 	N_("Your Harbor near %s has been captured by a spy from %s's Kingdom%s."),
-	N_("Your Fryhtan Lair near %s has been captured by a spy from %s's Kingdom%s."),
+	("Your Fryhtan Lair near %s has been captured by a spy from %s's Kingdom%s."),
 };
 const char *firm_captured_by_worker[MAX_FIRM_TYPE] =
 {
@@ -597,7 +597,7 @@ const char *firm_captured_by_worker[MAX_FIRM_TYPE] =
 	N_("Your Tower of Science near %s has been captured by %s's Kingdom%s."),
 	N_("Your War Factory near %s has been captured by %s's Kingdom%s."),
 	N_("Your Harbor near %s has been captured by %s's Kingdom%s."),
-	N_("Your Fryhtan Lair near %s has been captured by %s's Kingdom%s."),
+	("Your Fryhtan Lair near %s has been captured by %s's Kingdom%s."),
 };
 //------ Begin of function News::firm_captured -----//
 //
@@ -623,11 +623,11 @@ void News::firm_captured()
 
 	if( short_para3 )
 	{
-		snprintf(str, MAX_STR_LEN+1, firm_captured_by_spy[short_para1-1], town_res.get_name(short_para2), king_name2(), nation_color_str2());
+		snprintf(str, MAX_STR_LEN+1, _(firm_captured_by_spy[short_para1-1]), town_res.get_name(short_para2), king_name2(), nation_color_str2());
 	}
 	else
 	{
-		snprintf(str, MAX_STR_LEN+1, firm_captured_by_worker[short_para1-1], town_res.get_name(short_para2), king_name2(), nation_color_str2());
+		snprintf(str, MAX_STR_LEN+1, _(firm_captured_by_worker[short_para1-1]), town_res.get_name(short_para2), king_name2(), nation_color_str2());
 	}
 }
 //------- End of function News::firm_captured -----//
@@ -763,7 +763,7 @@ void News::monster_king_killed()
 	//
 	//----------------------------------------------//
 
-	str = monster_king_killed_msg[short_para1-1];
+	str = _(monster_king_killed_msg[short_para1-1]);
 }
 //------- End of function News::monster_king_killed -----//
 
@@ -797,11 +797,39 @@ void News::monster_firm_destroyed()
 	//
 	//----------------------------------------------//
 
-	str = monster_firm_destroyed_msg[short_para1-1];
+	str = _(monster_firm_destroyed_msg[short_para1-1]);
 }
 //------- End of function News::monster_firm_destroyed -----//
 
 
+const char *you_scroll_acquired_msg[] =
+{
+	// TRANSLATORS: You have acquired the <Race> Scroll of Power.
+	N_("You have acquired the Norman Scroll of Power."),
+	N_("You have acquired the Mayan Scroll of Power."),
+	N_("You have acquired the Greek Scroll of Power."),
+	N_("You have acquired the Viking Scroll of Power."),
+	N_("You have acquired the Persian Scroll of Power."),
+	N_("You have acquired the Chinese Scroll of Power."),
+	N_("You have acquired the Japanese Scroll of Power."),
+	N_("You have acquired the Egyptian Scroll of Power."),
+	N_("You have acquired the Mughul Scroll of Power."),
+	N_("You have acquired the Zulu Scroll of Power."),
+};
+const char *kingdom_scroll_acquired_msg[] =
+{
+	// TRANSLATORS: <King>'s Kingdom<Color> has acquired the <Race> Scroll of Power.
+	N_("%s's Kingdom%s has acquired the Norman Scroll of Power."),
+	N_("%s's Kingdom%s has acquired the Mayan Scroll of Power."),
+	N_("%s's Kingdom%s has acquired the Greek Scroll of Power."),
+	N_("%s's Kingdom%s has acquired the Viking Scroll of Power."),
+	N_("%s's Kingdom%s has acquired the Persian Scroll of Power."),
+	N_("%s's Kingdom%s has acquired the Chinese Scroll of Power."),
+	N_("%s's Kingdom%s has acquired the Japanese Scroll of Power."),
+	N_("%s's Kingdom%s has acquired the Egyptian Scroll of Power."),
+	N_("%s's Kingdom%s has acquired the Mughul Scroll of Power."),
+	N_("%s's Kingdom%s has acquired the Zulu Scroll of Power."),
+};
 //------ Begin of function News::scroll_acquired -----//
 //
 // nation_name1() - the nation that has acquired the scroll.
@@ -819,13 +847,11 @@ void News::scroll_acquired()
 
 	if( nation_array.player_recno && nation_name_id1 == (~nation_array)->nation_name_id )
 	{
-		// TRANSLATORS: You have acquired the <Race> Scroll of Power.
-		snprintf(str, MAX_STR_LEN+1, _("You have acquired the %s Scroll of Power."), _(race_res[short_para1]->adjective));
+		str = _(you_scroll_acquired_msg[short_para1-1]);
 	}
 	else
 	{
-		// TRANSLATORS: <King>'s Kingdom<Color> has acquired the <Race> Scroll of Power.
-		snprintf(str, MAX_STR_LEN+1, _("%s's Kingdom%s has acquired the %s Scroll of Power."), king_name1(), nation_color_str1(), _(race_res[short_para1]->adjective));
+		snprintf(str, MAX_STR_LEN+1, _(kingdom_scroll_acquired_msg[short_para1-1]), king_name1(), nation_color_str1());
 	}
 }
 //------- End of function News::scroll_acquired -----//
@@ -910,11 +936,11 @@ void News::your_spy_killed()
 	{
 		if( nation_name_id2 )		// not for independent town.
 		{
-			snprintf(str, MAX_STR_LEN+1, your_spy_killed_in_firm_by_nation[short_para1-1], town_res.get_name(short_para2), king_name2(), nation_color_str2());
+			snprintf(str, MAX_STR_LEN+1, _(your_spy_killed_in_firm_by_nation[short_para1-1]), town_res.get_name(short_para2), king_name2(), nation_color_str2());
 		}
 		else
 		{
-			snprintf(str, MAX_STR_LEN+1, your_spy_killed_in_firm[short_para1-1], town_res.get_name(short_para2));
+			snprintf(str, MAX_STR_LEN+1, _(your_spy_killed_in_firm[short_para1-1]), town_res.get_name(short_para2));
 		}
 	}
 	else if( short_para3 == SPY_TOWN )
@@ -990,7 +1016,7 @@ void News::enemy_spy_killed()
 	{
 		if( short_para3==SPY_FIRM )
 		{
-			snprintf(str, MAX_STR_LEN+1, enemy_spy_killed_in_firm[short_para1-1], king_name2(), nation_color_str2(), town_res.get_name(short_para2));
+			snprintf(str, MAX_STR_LEN+1, _(enemy_spy_killed_in_firm[short_para1-1]), king_name2(), nation_color_str2(), town_res.get_name(short_para2));
 		}
 		else
 		{
@@ -1189,7 +1215,7 @@ void News::raw_exhaust()
 	//
 	//----------------------------------------------//
 
-	str = raw_exhaust_msg[short_para1-1];
+	str = _(raw_exhaust_msg[short_para1-1]);
 }
 //------- End of function News::raw_exhaust -----//
 
@@ -1234,11 +1260,11 @@ void News::tech_researched()
 
 	if( tech_res[short_para1]->max_tech_level > 1 )		// if the tech has more than one level
 	{
-		snprintf(str, MAX_STR_LEN+1, tech_researched_level_msg[short_para1-1], misc.roman_number(short_para2));
+		snprintf(str, MAX_STR_LEN+1, _(tech_researched_level_msg[short_para1-1]), misc.roman_number(short_para2));
 	}
 	else
 	{
-		str = tech_researched_msg[short_para1-1];
+		str = _(tech_researched_msg[short_para1-1]);
 	}
 }
 //------- End of function News::tech_researched -----//
@@ -1256,7 +1282,7 @@ const char *lightning_destroyed_firm_near_town[MAX_FIRM_TYPE] =
 	N_("Your Tower of Science near %s has been destroyed by lightning."),
 	N_("Your War Factory near %s has been destroyed by lightning."),
 	N_("Your Harbor near %s has been destroyed by lightning."),
-	N_("Your Fryhtan Lair near %s has been destroyed by lightning."),
+	("Your Fryhtan Lair near %s has been destroyed by lightning."),
 };
 const char *lightning_damaged_firm_near_town[MAX_FIRM_TYPE] =
 {
@@ -1270,7 +1296,7 @@ const char *lightning_damaged_firm_near_town[MAX_FIRM_TYPE] =
 	N_("Your Tower of Science near %s has been struck by lightning."),
 	N_("Your War Factory near %s has been struck by lightning."),
 	N_("Your Harbor near %s has been struck by lightning."),
-	N_("Your Fryhtan Lair near %s has been struck by lightning."),
+	("Your Fryhtan Lair near %s has been struck by lightning."),
 };
 const char *lightning_destroyed_firm[MAX_FIRM_TYPE] =
 {
@@ -1284,7 +1310,7 @@ const char *lightning_destroyed_firm[MAX_FIRM_TYPE] =
 	N_("Your Tower of Science has been destroyed by lightning."),
 	N_("Your War Factory has been destroyed by lightning."),
 	N_("Your Harbor has been destroyed by lightning."),
-	N_("Your Fryhtan Lair has been destroyed by lightning."),
+	("Your Fryhtan Lair has been destroyed by lightning."),
 };
 const char *lightning_damaged_firm[MAX_FIRM_TYPE] =
 {
@@ -1298,7 +1324,7 @@ const char *lightning_damaged_firm[MAX_FIRM_TYPE] =
 	N_("Your Tower of Science has been struck by lightning."),
 	N_("Your War Factory has been struck by lightning."),
 	N_("Your Harbor has been struck by lightning."),
-	N_("Your Fryhtan Lair has been struck by lightning."),
+	("Your Fryhtan Lair has been struck by lightning."),
 };
 //------ Begin of function News::lightning_damage -----//
 //
@@ -1370,22 +1396,22 @@ void News::lightning_damage()
 		{
 			if( short_para5 )
 			{
-				snprintf(str, MAX_STR_LEN+1, lightning_destroyed_firm_near_town[short_para2-1], town_res.get_name(short_para3));
+				snprintf(str, MAX_STR_LEN+1, _(lightning_destroyed_firm_near_town[short_para2-1]), town_res.get_name(short_para3));
 			}
 			else
 			{
-				snprintf(str, MAX_STR_LEN+1, lightning_damaged_firm_near_town[short_para2-1], town_res.get_name(short_para3));
+				snprintf(str, MAX_STR_LEN+1, _(lightning_damaged_firm_near_town[short_para2-1]), town_res.get_name(short_para3));
 			}
 		}
 		else
 		{
 			if( short_para5 )
 			{
-				str = lightning_destroyed_firm[short_para2-1];
+				str = _(lightning_destroyed_firm[short_para2-1]);
 			}
 			else
 			{
-				str = lightning_damaged_firm[short_para2-1];
+				str = _(lightning_damaged_firm[short_para2-1]);
 			}
 		}
 		break;
@@ -1569,15 +1595,15 @@ void News::weapon_ship_worn_out()
 	if( short_para1 == UNIT_F_BALLISTA )
 	{
 		// unicorn is separate in the dbf, handle directly
-		snprintf(str, MAX_STR_LEN+1, unicorn_worn_out_msg, misc.roman_number(short_para2));
+		snprintf(str, MAX_STR_LEN+1, _(unicorn_worn_out_msg), misc.roman_number(short_para2));
 	}
 	else if( short_para2 )
 	{
-		snprintf(str, MAX_STR_LEN+1, weapon_ship_worn_out_msg[short_para1-UNIT_CATAPULT], misc.roman_number(short_para2));
+		snprintf(str, MAX_STR_LEN+1, _(weapon_ship_worn_out_msg[short_para1-UNIT_CATAPULT]), misc.roman_number(short_para2));
 	}
 	else
 	{
-		str = weapon_ship_worn_out_msg[short_para1-UNIT_CATAPULT];
+		str = _(weapon_ship_worn_out_msg[short_para1-UNIT_CATAPULT]);
 	}
 }
 //------- End of function News::weapon_ship_worn_out -----//
@@ -1595,7 +1621,7 @@ const char *firm_worn_out_near_town_msg[MAX_FIRM_TYPE] =
 	N_("Your Tower of Science near %s has fallen into disrepair due to the lack of maintenance funds."),
 	N_("Your War Factory near %s has fallen into disrepair due to the lack of maintenance funds."),
 	N_("Your Harbor near %s has fallen into disrepair due to the lack of maintenance funds."),
-	N_("Your Fryhtan Lair near %s has fallen into disrepair due to the lack of maintenance funds."),
+	("Your Fryhtan Lair near %s has fallen into disrepair due to the lack of maintenance funds."),
 
 };
 //------ Begin of function News::firm_worn_out -----//
@@ -1612,7 +1638,7 @@ void News::firm_worn_out()
 	//
 	//----------------------------------------------//
 
-	snprintf(str, MAX_STR_LEN+1, firm_worn_out_near_town_msg[short_para1-1], town_res.get_name(short_para2));
+	snprintf(str, MAX_STR_LEN+1, _(firm_worn_out_near_town_msg[short_para1-1]), town_res.get_name(short_para2));
 }
 //------- End of function News::firm_worn_out -----//
 
@@ -1717,11 +1743,7 @@ char* News::nation_name1()
 
 	//------ add color bar -------//
 
-	char colorCodeStr[] = " 0";
-
-	colorCodeStr[1] = FIRST_NATION_COLOR_CODE_IN_TEXT + nation_color1;
-
-	str += colorCodeStr;
+	str += nation_color_str1();
 
 	return str;
 }
@@ -1741,11 +1763,7 @@ char* News::nation_name2()
 
 	//------ add color bar -------//
 
-	char colorCodeStr[] = " 0";
-
-	colorCodeStr[1] = FIRST_NATION_COLOR_CODE_IN_TEXT + nation_color2;
-
-	str += colorCodeStr;
+	str += nation_color_str2();
 
 	return str;
 }
@@ -1770,10 +1788,7 @@ char* News::king_name1(int addColor)
 
 	if( addColor )
 	{
-		char colorCodeStr[] = " 0";
-		colorCodeStr[1] = FIRST_NATION_COLOR_CODE_IN_TEXT + nation_color1;
-
-		str += colorCodeStr;
+		str += nation_color_str1();
 	}
 
 	return str;
@@ -1799,10 +1814,7 @@ char* News::king_name2(int addColor)
 
 	if( addColor )
 	{
-		char colorCodeStr[] = " 0";
-		colorCodeStr[1] = FIRST_NATION_COLOR_CODE_IN_TEXT + nation_color2;
-
-		str += colorCodeStr;
+		str += nation_color_str2();
 	}
 
 	return str;
@@ -1810,13 +1822,14 @@ char* News::king_name2(int addColor)
 //------- End of function News::king_name2 -----//
 
 
+#define ASCII_ZERO 0x30
 //------ Begin of function News::nation_color_str1 -----//
 //
 char* News::nation_color_str1()
 {
-	static char colorCodeStr[] = " 0";
+	static char colorCodeStr[] = " @COL0";
 
-	colorCodeStr[1] = FIRST_NATION_COLOR_CODE_IN_TEXT + nation_color1;
+	colorCodeStr[5] = ASCII_ZERO + nation_color1;
 
 	return colorCodeStr;
 }
@@ -1827,9 +1840,9 @@ char* News::nation_color_str1()
 //
 char* News::nation_color_str2()
 {
-	static char colorCodeStr[] = " 0";
+	static char colorCodeStr[] = " @COL0";
 
-	colorCodeStr[1] = FIRST_NATION_COLOR_CODE_IN_TEXT + nation_color2;
+	colorCodeStr[5] = ASCII_ZERO + nation_color2;
 
 	return colorCodeStr;
 }

@@ -104,6 +104,7 @@
   <ItemGroup>
     <ClCompile Include="..\src\AM.cpp" />
     <ClCompile Include="..\src\CmdLine.cpp" />
+    <ClCompile Include="..\src\ConfigAdv.cpp" />
     <ClCompile Include="..\src\curl\WebService.cpp" />
     <ClCompile Include="..\src\dbglog.cpp" />
     <ClCompile Include="..\src\file_input_stream.cpp" />
@@ -422,6 +423,7 @@
     <ClCompile Include="..\src\OW_ROCK.cpp" />
     <ClCompile Include="..\src\OW_SOUND.cpp" />
     <ClCompile Include="..\src\OW_WALL.cpp" />
+    <ClCompile Include="..\src\PlayerStats.cpp" />
     <ClCompile Include="..\src\player_desc.cpp" />
     <ClCompile Include="..\src\ReplayFile.cpp" />
     <ClCompile Include="..\src\session_desc.cpp" />
@@ -437,6 +439,7 @@
     <ClInclude Include="..\include\CmdLine.h" />
     <ClInclude Include="..\include\COLCODE.h" />
     <ClInclude Include="..\include\COLOR.h" />
+    <ClInclude Include="..\include\ConfigAdv.h" />
     <ClInclude Include="..\include\CRC.h" />
     <ClInclude Include="..\include\dbglog.h" />
     <ClInclude Include="..\include\FilePath.h" />
@@ -611,6 +614,7 @@
     <ClInclude Include="..\include\OWEATHER.h" />
     <ClInclude Include="..\include\OWORLD.h" />
     <ClInclude Include="..\include\OWORLDMT.h" />
+    <ClInclude Include="..\include\PlayerStats.h" />
     <ClInclude Include="..\include\player_desc.h" />
     <ClInclude Include="..\include\posix_string_compat.h" />
     <ClInclude Include="..\include\ReplayFile.h" />
